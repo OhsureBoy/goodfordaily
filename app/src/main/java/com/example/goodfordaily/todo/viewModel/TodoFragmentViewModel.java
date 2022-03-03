@@ -16,8 +16,7 @@ public class TodoFragmentViewModel extends AndroidViewModel {
     }
 
     public void addTodoList() {
-        Log.e("TAG", "addTodoList: " + todoListData.getValue() );
+        //여기서 DB에 값을 넣자구요
 
-        todoListData.setValue("");
     }
 }

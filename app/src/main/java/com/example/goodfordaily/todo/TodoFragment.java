@@ -30,6 +30,13 @@ public class TodoFragment extends Fragment {
         viewModel = new ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication())).get(TodoFragmentViewModel.class);
         binding.setViewModel(viewModel);
 
+        binding.addTodoList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.getViewModel().addTodoList();
+                binding.editText.setText("");
+            }
+        });
         return binding.getRoot();
 
     }
