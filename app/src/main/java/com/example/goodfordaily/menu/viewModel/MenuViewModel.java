@@ -32,16 +32,6 @@ public class MenuViewModel extends AndroidViewModel {
     }
 
 
-    public View.OnClickListener clickedHomeBtn = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            Log.d("TAG", "onClick: ");
-            if(Home.getValue()==false)
-                Home.setValue(true);
-        }
-    };
-
     public void clickedToDoBtn() {
         Log.e("TAG", "onClick: ");
         Todo.setValue(true);
@@ -50,6 +40,10 @@ public class MenuViewModel extends AndroidViewModel {
     public void clickedDiaryBtn() {
         Log.e("TAG", "onClick: ");
         Diary.setValue(true);
+    }
+
+    public void clickedHomeBtn() {
+        Home.setValue(true);
     }
 
     public void ClickedDrawerBtn() {
