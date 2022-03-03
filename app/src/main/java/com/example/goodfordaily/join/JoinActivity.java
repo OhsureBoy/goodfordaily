@@ -22,6 +22,7 @@ public class JoinActivity extends AppCompatActivity {
 
     ActivityJoinBinding binding;
     JoinViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

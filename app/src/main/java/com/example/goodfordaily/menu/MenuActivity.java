@@ -20,6 +20,7 @@ public class MenuActivity extends AppCompatActivity {
     ActivityMenuBinding binding;
     MenuViewModel viewModel;
     FragmentManager fragmentManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
