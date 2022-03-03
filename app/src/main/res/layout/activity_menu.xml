@@ -1,0 +1,189 @@
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<data>
+    <variable
+        name="viewModel"
+        type="com.example.goodfordaily.menu.viewModel.MenuViewModel" />
+</data>
+
+
+<androidx.drawerlayout.widget.DrawerLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/drawer_layout"
+    tools:context=".menu.MenuActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="91dp"
+            android:layout_height="51dp"
+            android:onClick="@{()-> viewModel.ClickedDrawerBtn()}"
+            android:text="Menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.993"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.994" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/drawerView"
+        android:clickable="true"
+        android:background="@android:color/background_dark"
+        tools:context=".menu.MenuActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="반갑습니다"
+                android:textSize="14dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="60dp"
+                android:layout_centerHorizontal="true">
+            </TextView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/genter_icon"
+                android:layout_marginTop="80dp"
+                android:layout_marginLeft="50dp">
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="94dp"
+                android:layout_marginTop="80dp"
+                android:text="@{viewModel.userName}"
+                android:textColor="#ffffff"
+                android:textSize="26dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="좋은 하루 보내세요"
+                android:textSize="14dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="130dp"
+                android:layout_centerHorizontal="true">
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#80ffffff"
+                android:layout_marginTop="270dp">
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="298dp"
+                android:layout_marginLeft="20dp">
+            </ImageView>
+
+            <TextView
+                android:id="@+id/home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="44dp"
+                android:layout_marginTop="298dp"
+                android:onClick="@{()-> viewModel.clickedHomeBtn}"
+                android:text="Home"
+                android:textColor="#ffffff">\
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#80ffffff"
+                android:layout_marginTop="340dp">
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="368dp"
+                android:layout_marginLeft="20dp">
+            </ImageView>
+
+            <TextView
+                android:id="@+id/todo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="44dp"
+                android:layout_marginTop="368dp"
+                android:onClick="@{()-> viewModel.clickedToDoBtn()}"
+                android:text="To-DO"
+                android:textColor="#ffffff">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#80ffffff"
+                android:layout_marginTop="410dp">
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="438dp"
+                android:layout_marginLeft="20dp">
+            </ImageView>
+
+            <TextView
+                android:id="@+id/diary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="44dp"
+                android:layout_marginTop="438dp"
+                android:onClick="@{()-> viewModel.clickedDiaryBtn()}"
+                android:text="Diary"
+                android:textColor="#ffffff">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#80ffffff"
+                android:layout_marginTop="480dp">
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="로그아웃"
+                android:textSize="15dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="550dp"
+                android:layout_centerHorizontal="true"
+                android:onClick="OnClick">
+            </TextView>
+        </RelativeLayout>
+
+    </LinearLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
+</layout>
