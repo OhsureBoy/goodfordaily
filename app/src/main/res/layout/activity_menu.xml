@@ -4,7 +4,7 @@
 <data>
     <variable
         name="viewModel"
-        type="com.example.goodfordaily.menu.viewModel.MenuViewModel" />
+        type="com.example.goodfordaily.ui.menu.viewModel.MenuViewModel" />
 </data>
 
 
@@ -13,7 +13,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/drawer_layout"
-    tools:context=".menu.MenuActivity">
+    tools:context=".ui.menu.MenuActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,7 +30,8 @@
             app:layout_constraintHorizontal_bias="0.993"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.994" />
+            app:layout_constraintVertical_bias="0.994"
+            android:stateListAnimator="@null" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -48,7 +49,7 @@
         android:id="@+id/drawerView"
         android:clickable="true"
         android:background="@android:color/background_dark"
-        tools:context=".menu.MenuActivity">
+        tools:context=".ui.menu.MenuActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"

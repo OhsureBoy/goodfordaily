@@ -3,7 +3,7 @@
 <data>
     <variable
         name="viewModel"
-        type="com.example.goodfordaily.login.viewModel.LoginViewModel" />
+        type="com.example.goodfordaily.ui.login.viewModel.LoginViewModel" />
 </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
