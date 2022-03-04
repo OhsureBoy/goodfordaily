@@ -18,7 +18,10 @@ public class LoginModel {
     @ColumnInfo(name = "Password")
     private String Password;
 
-
+    public LoginModel(String Email, String Password) {
+        this.Email = Email;
+        this.Password = Password;
+    }
     public int getId() {
         return id;
     }
