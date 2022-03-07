@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import com.example.goodfordaily.model.LoginModel;
+import com.example.goodfordaily.util.database.TodoDatabase;
 
 import java.util.List;
 
@@ -22,8 +23,8 @@ public class LoginRepository {
 
     public LoginRepository(Application application ,CompositeDisposable compositeDisposable) {
 
-        LoginDatabase db = LoginDatabase.getDatabase(application);
-        loginDao = db.loginDoa();
+        TodoDatabase db = TodoDatabase.getInstance(application);
+        loginDao = db.loginDao();
         allData = loginDao.getDetails();
         this.compositeDisposable = compositeDisposable;
     }

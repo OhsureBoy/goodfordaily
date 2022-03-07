@@ -6,6 +6,8 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import com.example.goodfordaily.model.TodoModel;
+import com.example.goodfordaily.repository.login.LoginDao;
+import com.example.goodfordaily.util.database.TodoDatabase;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class TodoRepository {
     private static final String TAG = "TaskRepository";
 
     private TodoDao todoDao;
+    private LoginDao loginDao;
     private LiveData<List<TodoModel>> allTasks;
     private CompositeDisposable compositeDisposable;
 
@@ -25,6 +28,7 @@ public class TodoRepository {
         this.compositeDisposable = compositeDisposable;
         TodoDatabase database = TodoDatabase.getInstance(application);
         todoDao = database.todoDao();
+        loginDao = database.loginDao();
         allTasks = todoDao.getAllTasks();
     }
 
