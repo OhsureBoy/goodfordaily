@@ -33,6 +33,10 @@ public class LoginRepository {
         loginDao.deleteAllData();
     }
 
+    public boolean getUser(String name, String passwd) {
+        return loginDao.getUser(name,passwd);
+    }
+
     public LiveData<List<LoginModel>> getAllData() {
         return allData;
     }

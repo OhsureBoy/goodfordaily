@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 
 import com.example.goodfordaily.R;
 import com.example.goodfordaily.databinding.ActivityLoginBinding;
@@ -20,6 +22,8 @@ import com.example.goodfordaily.ui.login.viewModel.LoginViewModel;
 
 import com.example.goodfordaily.ui.menu.MenuActivity;
 import com.example.goodfordaily.util.dialog.DialogHelper;
+
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -62,8 +66,28 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-    }
 
+        binding.loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Log.e("TAG", "run: " + "ASODKASOK");
+//                        Log.e("TAG", "onClick: " + loginViewModel.checkedLogin("aa", "aa"));
+//                    }
+//                }).start();
+
+//               loginViewModel.getGetAllData().getValue().stream()
+//                        .map(LoginModel::getEmail)
+//                        .filter(id ->
+//                                id.equals("aa"))
+//                        .forEach(id -> Log.e("TAG", "onClick: " + "AA" ));
+
+                Log.e("TAG", "onClick: " + loginViewModel.getGetAllData().getValue().get(0).getEmail() );
+            }
+        });
+    }
 
     // 키보드 버튼 내리기 부분
     // InputMethodManager는 soft키보드를 관리한다.

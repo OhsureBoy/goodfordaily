@@ -17,6 +17,7 @@ import com.example.goodfordaily.util.SaveSharedPreferences;
 import com.example.goodfordaily.util.dialog.DialogInfo;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Observer;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -51,6 +52,8 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public void loginBtnClick() {
+        Log.e("TAG", "run: " + "BUTTON ON" );
+
 
     }
 
@@ -62,6 +65,9 @@ public class LoginViewModel extends AndroidViewModel {
         repository.insertData(data);
     }
 
+    public boolean checkedLogin(String name, String passwd) {
+        return repository.getUser(name, passwd);
+    }
     public LiveData<List<LoginModel>> getGetAllData() {
         return getAllData;
     }

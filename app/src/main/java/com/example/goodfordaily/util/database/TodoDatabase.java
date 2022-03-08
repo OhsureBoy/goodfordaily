@@ -6,12 +6,13 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.goodfordaily.model.LoginModel;
 import com.example.goodfordaily.model.TodoModel;
 import com.example.goodfordaily.repository.login.LoginDao;
 import com.example.goodfordaily.repository.todoList.TodoDao;
 
 //Singleton
-@Database(entities = TodoModel.class, version = 1, exportSchema = false)
+@Database(entities = {TodoModel.class, LoginModel.class}, version = 1, exportSchema = false)
 public abstract class TodoDatabase extends RoomDatabase {
     private static TodoDatabase instance;
 

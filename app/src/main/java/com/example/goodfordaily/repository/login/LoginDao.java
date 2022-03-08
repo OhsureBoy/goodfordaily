@@ -21,7 +21,7 @@ public interface LoginDao {
     LiveData<List<LoginModel>> getDetails();
 
     @Query("select * from LoginDetails where Email= :mail and password= :password")
-    LoginModel getUser(String mail, String password);
+    boolean getUser(String mail, String password);
 
     @Query("delete from LoginDetails")
     void deleteAllData();
