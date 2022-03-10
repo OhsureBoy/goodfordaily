@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,13 +23,20 @@ import com.example.goodfordaily.ui.login.viewModel.LoginViewModel;
 
 import com.example.goodfordaily.ui.menu.MenuActivity;
 import com.example.goodfordaily.util.dialog.DialogHelper;
+import com.example.goodfordaily.util.dialog.DialogInfo;
 
 import java.util.Objects;
+;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class LoginActivity extends AppCompatActivity {
 
     ActivityLoginBinding binding;
     LoginViewModel loginViewModel;
+    Disposable backgroundtask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,22 +46,6 @@ public class LoginActivity extends AppCompatActivity {
 
         loginViewModel =  new ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())).get(LoginViewModel.class);
         binding.setViewModel(loginViewModel);
-
-        //회원가입 화면 이동
-        loginViewModel.join.observe(this,JoinSuccess->{
-            if(JoinSuccess) {
-                Intent intent = new Intent(getApplicationContext(), JoinActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
-
-        //메뉴 화면 이동
-        loginViewModel.login.observe(this,LoginSuccess -> {
-            if(LoginSuccess) {
-                startActivity(new Intent(this, MenuActivity.class));
-            }
-        });
 
         loginViewModel.dialog.observe(this,dialog-> {
             if (dialog == null) {
@@ -70,21 +62,36 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Log.e("TAG", "run: " + "ASODKASOK");
-//                        Log.e("TAG", "onClick: " + loginViewModel.checkedLogin("aa", "aa"));
-//                    }
-//                }).start();
 
-//               loginViewModel.getGetAllData().getValue().stream()
-//                        .map(LoginModel::getEmail)
-//                        .filter(id ->
-//                                id.equals("aa"))
-//                        .forEach(id -> Log.e("TAG", "onClick: " + "AA" ));
+                backgroundtask = Observable.fromCallable(() -> {
+                    boolean checkedLogin = loginViewModel.checkedLogin(binding.userId.getText().toString(), binding.userPassword.getText().toString());
+                    return checkedLogin;
+                }).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .onErrorReturn(throwable -> false)
+                        .subscribe((checkedLogin) -> {
+                           if(checkedLogin) {
+                               startActivity(new Intent(binding.getRoot().getContext(), MenuActivity.class));
+                           }else {
+                               DialogInfo dialog = new DialogInfo(R.style.Theme_AppCompat_Dialog, "실패", "아이디 패스워드를 확인하세요", "확인", new DialogInterface.OnClickListener() {
+                                   @Override
+                                   public void onClick(DialogInterface dialog, int which) {
+                                       dialog.dismiss();
+                                   }
+                               });
+                               DialogHelper.dialogShow(binding.getRoot().getContext(), dialog.getStyle(), dialog.getTitle(), dialog.getMessage());
+                           }
+                            backgroundtask.dispose();
+                        });
+            }
+        });
 
-                Log.e("TAG", "onClick: " + loginViewModel.getGetAllData().getValue().get(0).getEmail() );
+        binding.joinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), JoinActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }

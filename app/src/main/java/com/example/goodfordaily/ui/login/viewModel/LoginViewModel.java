@@ -25,50 +25,16 @@ import io.reactivex.disposables.CompositeDisposable;
 public class LoginViewModel extends AndroidViewModel {
 
     private LoginRepository repository;
-    private LiveData<List<LoginModel>> getAllData;
-
-    public MutableLiveData<String> userId;
-    public MutableLiveData<String> password;
-    public MutableLiveData<Boolean> login;
-    public MutableLiveData<Boolean> join;
-    public MutableLiveData<DialogInfo> dialog;
-
     private CompositeDisposable compositeDisposable;
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
 
-        userId          = new MutableLiveData<>();
-        password        = new MutableLiveData<>();
-        login           = new MutableLiveData<>();
-        join            = new MutableLiveData<>();
-        dialog          = new MutableLiveData<>();
         compositeDisposable = new CompositeDisposable();
-
         repository = new LoginRepository(application , compositeDisposable);
-        getAllData = repository.getAllData();
-
-
-    }
-
-    public void loginBtnClick() {
-        Log.e("TAG", "run: " + "BUTTON ON" );
-
-
-    }
-
-    public void joinBtnClick(){
-        join.setValue(true);
-    }
-
-    public void insert(LoginModel data) {
-        repository.insertData(data);
     }
 
     public boolean checkedLogin(String name, String passwd) {
         return repository.getUser(name, passwd);
-    }
-    public LiveData<List<LoginModel>> getGetAllData() {
-        return getAllData;
     }
 }

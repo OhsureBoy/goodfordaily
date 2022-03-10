@@ -54,4 +54,6 @@ dependencies {
 
     //Room and RxJava integration
     implementation "androidx.room:room-rxjava2:2.4.2"
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
 }
