@@ -1,5 +1,5 @@
 # goodfordaily
 
-#Study List
+Study List
 
 Android , Java, Room, RxJava, DataBinding, Jetpack MVVM 
