@@ -37,6 +37,10 @@ public class LoginRepository {
         return loginDao.getUser(name,passwd);
     }
 
+    public boolean getSameName(String name) {
+        return loginDao.getSameName(name);
+    }
+
     public LiveData<List<LoginModel>> getAllData() {
         return allData;
     }

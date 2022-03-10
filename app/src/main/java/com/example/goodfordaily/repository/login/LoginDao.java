@@ -23,6 +23,9 @@ public interface LoginDao {
     @Query("select * from LoginDetails where Email= :mail and password= :password")
     boolean getUser(String mail, String password);
 
+    @Query("select * from LoginDetails where Email= :mail")
+    boolean getSameName(String mail);
+
     @Query("delete from LoginDetails")
     void deleteAllData();
 

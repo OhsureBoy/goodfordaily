@@ -5,6 +5,10 @@
         <variable
             name="viewModel"
             type="com.example.goodfordaily.ui.join.viewModel.JoinViewModel" />
+
+        <variable
+            name="view"
+            type="com.example.goodfordaily.ui.join.JoinActivity" />
     </data>
 
     <LinearLayout
@@ -27,7 +31,6 @@
                 android:layout_height="wrap_content"
                 android:hint="아이디"
                 android:ems="20"
-                android:text="@={viewModel.joinId}"
                 android:inputType="text"/>
         </FrameLayout>
 
@@ -40,15 +43,14 @@
                 android:layout_height="wrap_content"
                 android:hint="비밀번호"
                 android:ems="20"
-                android:inputType="textPassword"
-                android:text="@={viewModel.joinPassword}"/>
+                android:inputType="textPassword"/>
         </FrameLayout>
 
         <Button
+            android:id="@+id/joinBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="회원가입"
-            android:onClick="@{()->viewModel.userJoinBtn()}"/>
+            android:text="회원가입"/>
 
     </LinearLayout>
 </layout>

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.goodfordaily.R;
 import com.example.goodfordaily.databinding.ActivityLoginBinding;
@@ -47,39 +49,28 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel =  new ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())).get(LoginViewModel.class);
         binding.setViewModel(loginViewModel);
 
-        loginViewModel.dialog.observe(this,dialog-> {
-            if (dialog == null) {
-                return;
-            }
-            if (dialog.getButton() == null) {
-                DialogHelper.dialogShow(this, dialog.getStyle(), dialog.getTitle(), dialog.getMessage());
-            } else {
-                DialogHelper.dialogShow(this, dialog.getStyle(), dialog.getTitle(), dialog.getMessage(), dialog.getmOnClickListener());
-
-            }
-        });
-
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 backgroundtask = Observable.fromCallable(() -> {
-                    boolean checkedLogin = loginViewModel.checkedLogin(binding.userId.getText().toString(), binding.userPassword.getText().toString());
+                    boolean checkedLogin = loginViewModel.checkedLogin(binding.userId.getText().toString().trim(), binding.userPassword.getText().toString().trim());
                     return checkedLogin;
-                }).subscribeOn(Schedulers.io())
+                })
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .onErrorReturn(throwable -> false)
                         .subscribe((checkedLogin) -> {
                            if(checkedLogin) {
                                startActivity(new Intent(binding.getRoot().getContext(), MenuActivity.class));
                            }else {
-                               DialogInfo dialog = new DialogInfo(R.style.Theme_AppCompat_Dialog, "실패", "아이디 패스워드를 확인하세요", "확인", new DialogInterface.OnClickListener() {
+                               DialogInfo dialog = new DialogInfo(R.style.Theme_AppCompat_Dialog, "실패", "아이디 패스워드를 확인하세요", "확인");
+                               DialogHelper.dialogShow(binding.getRoot().getContext(), dialog.getStyle(), dialog.getTitle(), dialog.getMessage(), new DialogInterface.OnClickListener() {
                                    @Override
                                    public void onClick(DialogInterface dialog, int which) {
                                        dialog.dismiss();
                                    }
                                });
-                               DialogHelper.dialogShow(binding.getRoot().getContext(), dialog.getStyle(), dialog.getTitle(), dialog.getMessage());
                            }
                             backgroundtask.dispose();
                         });
@@ -100,15 +91,16 @@ public class LoginActivity extends AppCompatActivity {
     // InputMethodManager는 soft키보드를 관리한다.
     //View view getCurrentFocus는 현재 포커스를 가지고 온다.
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        float x = event.getX();
-        float y = event.getY();
-        if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-            View view = getCurrentFocus();
-            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            assert view != null;
-            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View view = getCurrentFocus();
+        if (view != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) && view instanceof EditText && !view.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            view.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + view.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + view.getTop() - scrcoords[1];
+            if (x < view.getLeft() || x > view.getRight() || y < view.getTop() || y > view.getBottom())
+                ((InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
         }
-        return super.onTouchEvent(event);
+        return super.dispatchTouchEvent(ev);
     }
 }
