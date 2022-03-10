@@ -48,6 +48,7 @@ public class TodoFragmentViewModel extends AndroidViewModel {
 
     public void addTodoList() {
         //여기서 DB에 값을 넣자구요
+        checkBoxClicked.setValue(false);
         if(!Objects.equals(Objects.requireNonNull(todoListData.getValue()).trim(),""))
             todoList.add(new TodoListModel( todoListData.getValue() , checkBoxClicked.getValue() , onClickListener));
     }

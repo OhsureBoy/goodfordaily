@@ -35,6 +35,6 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public boolean checkedLogin(String name, String passwd) {
-        return repository.getUser(name, passwd);
+        return repository.getUserCheck(name, passwd);
     }
 }

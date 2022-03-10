@@ -21,7 +21,7 @@ public interface LoginDao {
     LiveData<List<LoginModel>> getDetails();
 
     @Query("select * from LoginDetails where Email= :mail and password= :password")
-    boolean getUser(String mail, String password);
+    boolean getUserCheck(String mail, String password);
 
     @Query("select * from LoginDetails where Email= :mail")
     boolean getSameName(String mail);

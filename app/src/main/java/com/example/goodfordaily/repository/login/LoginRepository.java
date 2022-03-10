@@ -33,8 +33,8 @@ public class LoginRepository {
         loginDao.deleteAllData();
     }
 
-    public boolean getUser(String name, String passwd) {
-        return loginDao.getUser(name,passwd);
+    public boolean getUserCheck(String name, String passwd) {
+        return loginDao.getUserCheck(name,passwd);
     }
 
     public boolean getSameName(String name) {

@@ -62,7 +62,9 @@ public class LoginActivity extends AppCompatActivity {
                         .onErrorReturn(throwable -> false)
                         .subscribe((checkedLogin) -> {
                            if(checkedLogin) {
-                               startActivity(new Intent(binding.getRoot().getContext(), MenuActivity.class));
+                               Intent intent = new Intent(binding.getRoot().getContext(), MenuActivity.class);
+                               intent.putExtra("userName",binding.userId.getText().toString().trim());
+                               startActivity(intent);
                            }else {
                                DialogInfo dialog = new DialogInfo(R.style.Theme_AppCompat_Dialog, "실패", "아이디 패스워드를 확인하세요", "확인");
                                DialogHelper.dialogShow(binding.getRoot().getContext(), dialog.getStyle(), dialog.getTitle(), dialog.getMessage(), new DialogInterface.OnClickListener() {

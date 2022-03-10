@@ -31,6 +31,9 @@ public class MenuActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())).get(MenuViewModel.class);
         binding.setViewModel(viewModel);
 
+        //userName
+        viewModel.userName.setValue(getIntent().getStringExtra("userName") + "님");
+        
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.menu_fragment, HomeFragment.class, null)

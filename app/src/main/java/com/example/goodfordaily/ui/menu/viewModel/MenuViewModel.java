@@ -7,7 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.goodfordaily.repository.login.LoginRepository;
 import com.example.goodfordaily.util.SaveSharedPreferences;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class MenuViewModel extends AndroidViewModel {
     public MutableLiveData<Boolean> Home;
@@ -23,9 +26,6 @@ public class MenuViewModel extends AndroidViewModel {
         Diary       = new MutableLiveData<>();
         userName    = new MutableLiveData<>();
         drawer      = new MutableLiveData<>();
-        
-        userName.setValue(SaveSharedPreferences.getUserName(getApplication())+"님");
-
     }
 
 
