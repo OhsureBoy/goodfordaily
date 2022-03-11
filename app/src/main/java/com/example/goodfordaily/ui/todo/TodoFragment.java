@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.goodfordaily.R;
 
 import com.example.goodfordaily.databinding.FragmentTodoBinding;
+import com.example.goodfordaily.model.TodoModel;
 import com.example.goodfordaily.ui.todo.adapter.TodoAdapter;
 import com.example.goodfordaily.ui.todo.viewModel.TodoFragmentViewModel;
 
@@ -21,6 +22,7 @@ public class TodoFragment extends Fragment {
     FragmentTodoBinding binding;
     TodoFragmentViewModel viewModel;
     TodoAdapter todoAdapter;
+    Bundle result;
 
     @Nullable
     @Override
@@ -31,13 +33,15 @@ public class TodoFragment extends Fragment {
         binding.setViewModel(viewModel);
 
         todoAdapter = new TodoAdapter();
+        result = new Bundle();
         binding.todoView.setAdapter(todoAdapter);
 
+
+        viewModel. getAllTasks().observe(getViewLifecycleOwner(), tasks -> todoAdapter.setTodoList(tasks));
         binding.addTodoList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.getViewModel().addTodoList();
-                todoAdapter.setTodoList(binding.getViewModel().todoList);
+                binding.getViewModel().insert(new TodoModel(binding.editText.getText().toString().trim(), result.getString("id")));
                 binding.editText.setText("");
             }
         });

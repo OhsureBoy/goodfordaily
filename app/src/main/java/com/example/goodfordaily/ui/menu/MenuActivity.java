@@ -34,7 +34,7 @@ public class MenuActivity extends AppCompatActivity {
 
         //userName
         viewModel.userName.setValue(getIntent().getStringExtra("userName") + "님");
-        
+
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.menu_fragment, HomeFragment.class, null)
@@ -50,6 +50,10 @@ public class MenuActivity extends AppCompatActivity {
         binding.home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Bundle result = new Bundle();
+                result.putString("id", viewModel.userName.getValue());
+
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.menu_fragment, HomeFragment.class, null)

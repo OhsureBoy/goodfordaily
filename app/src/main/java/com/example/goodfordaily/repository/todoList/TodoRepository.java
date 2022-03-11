@@ -32,9 +32,9 @@ public class TodoRepository {
         allTasks = todoDao.getAllTasks();
     }
 
-    public void insert(final TodoModel task) {
+    public void insert(final TodoModel task, String name) {
         compositeDisposable.add(
-                todoDao.insert(task)
+                todoDao.insert(task,name)
                         .subscribeOn(Schedulers.io())
                         .subscribeWith(new DisposableCompletableObserver() {
                             @Override

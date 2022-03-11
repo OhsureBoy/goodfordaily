@@ -11,13 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.goodfordaily.R;
+import com.example.goodfordaily.model.TodoModel;
 import com.example.goodfordaily.ui.todo.model.TodoListModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 
-    private ArrayList<TodoListModel> todoList;
+    private List<TodoModel> todoList;
 
     @NonNull
     @Override
@@ -31,7 +33,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         holder.onBind(todoList.get(position));
     }
 
-    public void setTodoList(ArrayList<TodoListModel> list){
+    public void setTodoList(List<TodoModel> list){
         this.todoList = list;
         notifyDataSetChanged();
     }
@@ -54,11 +56,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
             button = (Button) itemView.findViewById(R.id.todo_delete);
         }
 
-        void onBind(TodoListModel item) {
+        void onBind(TodoModel item) {
 
-            todoData.setText(item.getText());
-            checkbox.setChecked(item.getClicked());
-            button.setOnClickListener(item.getOnClickListener());
+            todoData.setText(item.getDescription());
         }
     }
 }

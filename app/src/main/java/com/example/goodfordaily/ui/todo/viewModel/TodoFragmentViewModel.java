@@ -46,12 +46,12 @@ public class TodoFragmentViewModel extends AndroidViewModel {
         compositeDisposable.dispose();
     }
 
-    public void addTodoList() {
-        //여기서 DB에 값을 넣자구요
-        checkBoxClicked.setValue(false);
-        if(!Objects.equals(Objects.requireNonNull(todoListData.getValue()).trim(),""))
-            todoList.add(new TodoListModel( todoListData.getValue() , checkBoxClicked.getValue() , onClickListener));
-    }
+//    public void addTodoList() {
+//        //여기서 DB에 값을 넣자구요
+//        checkBoxClicked.setValue(false);
+//        if(!Objects.equals(Objects.requireNonNull(todoListData.getValue()).trim(),""))
+//            todoList.add(new TodoListModel( todoListData.getValue() , checkBoxClicked.getValue() , onClickListener));
+//    }
 
     Button.OnClickListener onClickListener = new Button.OnClickListener() {
         @Override
@@ -60,8 +60,8 @@ public class TodoFragmentViewModel extends AndroidViewModel {
         }
     };
 
-    public void insert(TodoModel task) {
-        todoRepository.insert(task);
+    public void insert(TodoModel task, String name) {
+        todoRepository.insert(task, name);
     }
 
     public void update(TodoModel task) {

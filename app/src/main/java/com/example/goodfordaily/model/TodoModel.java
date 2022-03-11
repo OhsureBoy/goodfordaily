@@ -1,6 +1,7 @@
 package com.example.goodfordaily.model;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "todo_table")
@@ -9,17 +10,25 @@ public class TodoModel {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private String title;
+    private String name;
     private String description;
 
     //Use this to change column name in SQL table
     //@ColumnInfo(name = "priority_column")
-    private int priority;
+//    private int priority;
 
-    public TodoModel(String title, String description, int priority) {
-        this.title = title;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public TodoModel(String description, String name) {
         this.description = description;
-        this.priority = priority;
+        this.name = name;
     }
 
     public int getId() {
@@ -30,13 +39,6 @@ public class TodoModel {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getDescription() {
         return description;
@@ -44,13 +46,5 @@ public class TodoModel {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
     }
 }
