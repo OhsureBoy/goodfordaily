@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.example.goodfordaily.repository.login.LoginRepository;
 
-import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class LoginViewModel extends AndroidViewModel {
 

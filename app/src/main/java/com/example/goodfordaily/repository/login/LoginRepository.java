@@ -11,15 +11,19 @@ import com.example.goodfordaily.util.database.TodoDatabase;
 
 import java.util.List;
 
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DisposableCompletableObserver;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.observers.DisposableCompletableObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class LoginRepository {
 
     private LoginDao loginDao;
     private LiveData<List<LoginModel>> allData;
     private CompositeDisposable compositeDisposable;
+    private Disposable backgroundtask;
+    boolean check;
 
     public LoginRepository(Application application ,CompositeDisposable compositeDisposable) {
 
@@ -34,7 +38,23 @@ public class LoginRepository {
     }
 
     public boolean getUserCheck(String name, String passwd) {
-        return loginDao.getUserCheck(name,passwd);
+
+        backgroundtask = Observable.fromCallable(() -> {
+            boolean userCheck = loginDao.getUserCheck(name,passwd);
+            return userCheck;
+        }) .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .onErrorReturn(throwable -> false)
+                .subscribe((userCheck) -> {
+                    if(userCheck)
+                        check = true;
+                    else
+                        check =  false;
+
+                    backgroundtask.dispose();
+                });
+
+        return check;
     }
 
     public boolean getSameName(String name) {

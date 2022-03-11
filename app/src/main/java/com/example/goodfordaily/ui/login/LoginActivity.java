@@ -52,30 +52,21 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean checkedLogin = loginViewModel.checkedLogin(binding.userId.getText().toString().trim(), binding.userPassword.getText().toString().trim());
 
-                backgroundtask = Observable.fromCallable(() -> {
-                    boolean checkedLogin = loginViewModel.checkedLogin(binding.userId.getText().toString().trim(), binding.userPassword.getText().toString().trim());
-                    return checkedLogin;
-                })
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .onErrorReturn(throwable -> false)
-                        .subscribe((checkedLogin) -> {
-                           if(checkedLogin) {
-                               Intent intent = new Intent(binding.getRoot().getContext(), MenuActivity.class);
-                               intent.putExtra("userName",binding.userId.getText().toString().trim());
-                               startActivity(intent);
-                           }else {
-                               DialogInfo dialog = new DialogInfo(R.style.Theme_AppCompat_Dialog, "실패", "아이디 패스워드를 확인하세요", "확인");
-                               DialogHelper.dialogShow(binding.getRoot().getContext(), dialog.getStyle(), dialog.getTitle(), dialog.getMessage(), new DialogInterface.OnClickListener() {
+                if(checkedLogin) {
+                    Intent intent = new Intent(binding.getRoot().getContext(), MenuActivity.class);
+                    intent.putExtra("userName",binding.userId.getText().toString().trim());
+                    startActivity(intent);
+                }else {
+                    DialogInfo dialog = new DialogInfo(R.style.Theme_AppCompat_Dialog, "실패", "아이디 패스워드를 확인하세요", "확인");
+                    DialogHelper.dialogShow(binding.getRoot().getContext(), dialog.getStyle(), dialog.getTitle(), dialog.getMessage(), new DialogInterface.OnClickListener() {
                                    @Override
                                    public void onClick(DialogInterface dialog, int which) {
                                        dialog.dismiss();
                                    }
                                });
-                           }
-                            backgroundtask.dispose();
-                        });
+                }
             }
         });
 

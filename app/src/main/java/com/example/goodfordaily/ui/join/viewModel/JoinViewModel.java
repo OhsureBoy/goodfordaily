@@ -15,7 +15,8 @@ import com.example.goodfordaily.util.dialog.DialogInfo;
 
 import java.util.List;
 
-import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+
 
 public class JoinViewModel extends AndroidViewModel {
 

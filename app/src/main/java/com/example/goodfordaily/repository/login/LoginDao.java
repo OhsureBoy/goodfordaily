@@ -9,7 +9,8 @@ import com.example.goodfordaily.model.LoginModel;
 
 import java.util.List;
 
-import io.reactivex.Completable;
+import io.reactivex.rxjava3.core.Completable;
+
 
 @Dao
 public interface LoginDao {
