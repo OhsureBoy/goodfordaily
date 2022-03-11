@@ -11,6 +11,7 @@ import com.example.goodfordaily.util.database.TodoDatabase;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableCompletableObserver;
@@ -23,7 +24,7 @@ public class LoginRepository {
     private LiveData<List<LoginModel>> allData;
     private CompositeDisposable compositeDisposable;
     private Disposable backgroundtask;
-    boolean check;
+    private boolean userCheck;
 
     public LoginRepository(Application application ,CompositeDisposable compositeDisposable) {
 
@@ -40,25 +41,46 @@ public class LoginRepository {
     public boolean getUserCheck(String name, String passwd) {
 
         backgroundtask = Observable.fromCallable(() -> {
-            boolean userCheck = loginDao.getUserCheck(name,passwd);
+            return loginDao.getUserCheck(name,passwd);
+        }) .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe((userCheck) -> {
+                    this.userCheck = userCheck;
+                    Log.e("TAG", "getUserCheck: " + this.userCheck );
+                    backgroundtask.dispose();
+                });
+        try {
+            Thread.sleep(500);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
+        return userCheck;
+    }
+
+    public boolean getSameName(String name) {
+
+        backgroundtask = Observable.fromCallable(() -> {
+            userCheck = loginDao.getSameName(name);
             return userCheck;
         }) .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .onErrorReturn(throwable -> false)
                 .subscribe((userCheck) -> {
-                    if(userCheck)
-                        check = true;
-                    else
-                        check =  false;
-
                     backgroundtask.dispose();
                 });
 
-        return check;
-    }
-
-    public boolean getSameName(String name) {
-        return loginDao.getSameName(name);
+        try {
+            Thread.sleep(500);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        
+        return userCheck;
     }
 
     public LiveData<List<LoginModel>> getAllData() {

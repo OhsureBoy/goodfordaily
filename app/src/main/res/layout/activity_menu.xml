@@ -5,6 +5,10 @@
     <variable
         name="viewModel"
         type="com.example.goodfordaily.ui.menu.viewModel.MenuViewModel" />
+
+    <variable
+        name="view"
+        type="com.example.goodfordaily.ui.menu.MenuActivity" />
 </data>
 
 
@@ -23,7 +27,6 @@
             android:id="@+id/menu"
             android:layout_width="91dp"
             android:layout_height="51dp"
-            android:onClick="@{()-> viewModel.ClickedDrawerBtn()}"
             android:text="Menu"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +117,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="44dp"
                 android:layout_marginTop="298dp"
-                android:onClick="@{()-> viewModel.clickedHomeBtn()}"
                 android:text="Home"
                 android:textColor="#ffffff">\
             </TextView>
@@ -139,7 +141,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="44dp"
                 android:layout_marginTop="368dp"
-                android:onClick="@{()-> viewModel.clickedToDoBtn()}"
                 android:text="To-DO"
                 android:textColor="#ffffff">
 
@@ -165,7 +166,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="44dp"
                 android:layout_marginTop="438dp"
-                android:onClick="@{()-> viewModel.clickedDiaryBtn()}"
                 android:text="Diary"
                 android:textColor="#ffffff">
 

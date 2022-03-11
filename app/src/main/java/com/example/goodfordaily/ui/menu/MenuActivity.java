@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 
 import com.example.goodfordaily.R;
 import com.example.goodfordaily.databinding.ActivityMenuBinding;
@@ -39,14 +40,16 @@ public class MenuActivity extends AppCompatActivity {
                 .replace(R.id.menu_fragment, HomeFragment.class, null)
                 .commit();
 
-        binding.getViewModel().drawer.observe(this, click-> {
-            if(click) {
+        binding.menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 binding.drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
 
-        binding.getViewModel().Home.observe(this, click -> {
-            if(click) {
+        binding.home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.menu_fragment, HomeFragment.class, null)
@@ -56,8 +59,9 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        binding.getViewModel().Todo.observe(this, click-> {
-            if(click) {
+        binding.todo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.menu_fragment, TodoFragment.class, null)
@@ -67,8 +71,9 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        binding.getViewModel().Diary.observe(this, click-> {
-            if(click) {
+        binding.diary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.menu_fragment, DiaryFragment.class, null)

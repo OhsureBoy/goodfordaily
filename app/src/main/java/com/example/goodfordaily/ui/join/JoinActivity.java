@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,14 +22,7 @@ import com.example.goodfordaily.ui.join.viewModel.JoinViewModel;
 import com.example.goodfordaily.ui.login.LoginActivity;
 import com.example.goodfordaily.util.dialog.DialogHelper;
 import com.example.goodfordaily.util.dialog.DialogInfo;
-
-
-import java.util.List;
-
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class JoinActivity extends AppCompatActivity {
 

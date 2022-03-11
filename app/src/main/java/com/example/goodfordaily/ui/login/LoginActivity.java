@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
 
     ActivityLoginBinding binding;
     LoginViewModel loginViewModel;
-    Disposable backgroundtask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean checkedLogin = loginViewModel.checkedLogin(binding.userId.getText().toString().trim(), binding.userPassword.getText().toString().trim());
-
+                Log.e("TAG", "onClick: " + checkedLogin );
                 if(checkedLogin) {
                     Intent intent = new Intent(binding.getRoot().getContext(), MenuActivity.class);
                     intent.putExtra("userName",binding.userId.getText().toString().trim());
