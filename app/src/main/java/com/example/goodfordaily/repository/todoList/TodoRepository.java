@@ -24,17 +24,17 @@ public class TodoRepository {
     private LiveData<List<TodoModel>> allTasks;
     private CompositeDisposable compositeDisposable;
 
-    public TodoRepository(Application application, CompositeDisposable compositeDisposable) {
+    public TodoRepository(Application application, CompositeDisposable compositeDisposable,String name) {
         this.compositeDisposable = compositeDisposable;
         TodoDatabase database = TodoDatabase.getInstance(application);
         todoDao = database.todoDao();
         loginDao = database.loginDao();
-        allTasks = todoDao.getAllTasks();
+        allTasks = todoDao.getAllTasks(name);
     }
 
-    public void insert(final TodoModel task, String name) {
+    public void insert(final TodoModel task) {
         compositeDisposable.add(
-                todoDao.insert(task,name)
+                todoDao.insert(task)
                         .subscribeOn(Schedulers.io())
                         .subscribeWith(new DisposableCompletableObserver() {
                             @Override

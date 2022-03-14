@@ -28,6 +28,6 @@ public interface TodoDao {
     @Query("DELETE FROM todo_table")
     Completable deleteAllTasks();
 
-    @Query("SELECT * FROM todo_table")
-    LiveData<List<TodoModel>> getAllTasks();
+    @Query("SELECT * FROM todo_table where name=:name")
+    LiveData<List<TodoModel>> getAllTasks(String name);
 }

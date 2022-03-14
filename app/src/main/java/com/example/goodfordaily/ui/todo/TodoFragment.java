@@ -1,6 +1,7 @@
 package com.example.goodfordaily.ui.todo;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,6 @@ public class TodoFragment extends Fragment {
     FragmentTodoBinding binding;
     TodoFragmentViewModel viewModel;
     TodoAdapter todoAdapter;
-    Bundle result;
 
     @Nullable
     @Override
@@ -30,18 +30,23 @@ public class TodoFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_todo, container, false);
         binding.setLifecycleOwner(this);
         viewModel = new ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication())).get(TodoFragmentViewModel.class);
+        viewModel.setTodoRepository(getActivity().getApplication() ,getArguments().getString("id") );
+
         binding.setViewModel(viewModel);
 
+
         todoAdapter = new TodoAdapter();
-        result = new Bundle();
         binding.todoView.setAdapter(todoAdapter);
 
 
+
         viewModel. getAllTasks().observe(getViewLifecycleOwner(), tasks -> todoAdapter.setTodoList(tasks));
+
         binding.addTodoList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.getViewModel().insert(new TodoModel(binding.editText.getText().toString().trim(), result.getString("id")));
+                binding.getViewModel().insert(new TodoModel(binding.editText.getText().toString().trim(), viewModel.getName()));
+                Log.e("TAG", "onClick: " + viewModel.getName() );
                 binding.editText.setText("");
             }
         });

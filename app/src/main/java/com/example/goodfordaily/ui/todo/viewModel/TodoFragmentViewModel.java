@@ -1,6 +1,7 @@
 package com.example.goodfordaily.ui.todo.viewModel;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.goodfordaily.model.TodoModel;
 import com.example.goodfordaily.repository.todoList.TodoRepository;
+import com.example.goodfordaily.ui.menu.viewModel.MenuViewModel;
 import com.example.goodfordaily.ui.todo.model.TodoListModel;
 
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ public class TodoFragmentViewModel extends AndroidViewModel {
     private TodoRepository todoRepository;
     private LiveData<List<TodoModel>> allNotes;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private String name;
 
     public TodoFragmentViewModel(@NonNull Application application) {
         super(application);
@@ -36,8 +39,10 @@ public class TodoFragmentViewModel extends AndroidViewModel {
         todoList = new ArrayList<>();
         checkBoxClicked = new MutableLiveData<>();
 
-        todoRepository = new TodoRepository(application,compositeDisposable);
-        allNotes = todoRepository.getAllTasks();
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     @Override
@@ -46,22 +51,13 @@ public class TodoFragmentViewModel extends AndroidViewModel {
         compositeDisposable.dispose();
     }
 
-//    public void addTodoList() {
-//        //여기서 DB에 값을 넣자구요
-//        checkBoxClicked.setValue(false);
-//        if(!Objects.equals(Objects.requireNonNull(todoListData.getValue()).trim(),""))
-//            todoList.add(new TodoListModel( todoListData.getValue() , checkBoxClicked.getValue() , onClickListener));
-//    }
-
-    Button.OnClickListener onClickListener = new Button.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Log.e("TAG", "onClick: " + "DELETE" );
-        }
-    };
-
-    public void insert(TodoModel task, String name) {
-        todoRepository.insert(task, name);
+    public void setTodoRepository(Application application, String name) {
+        this.name = name;
+        todoRepository = new TodoRepository(application,compositeDisposable,name);
+        allNotes = todoRepository.getAllTasks();
+    }
+    public void insert(TodoModel task) {
+        todoRepository.insert(task);
     }
 
     public void update(TodoModel task) {

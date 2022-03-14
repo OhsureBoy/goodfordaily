@@ -15,6 +15,7 @@ import com.example.goodfordaily.ui.diary.DiaryFragment;
 import com.example.goodfordaily.ui.home.HomeFragment;
 import com.example.goodfordaily.ui.menu.viewModel.MenuViewModel;
 import com.example.goodfordaily.ui.todo.TodoFragment;
+import com.example.goodfordaily.ui.todo.model.TodoListModel;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -33,7 +34,7 @@ public class MenuActivity extends AppCompatActivity {
         binding.setViewModel(viewModel);
 
         //userName
-        viewModel.userName.setValue(getIntent().getStringExtra("userName") + "님");
+        viewModel.userName.setValue(getIntent().getStringExtra("userName"));
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
@@ -51,9 +52,6 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Bundle result = new Bundle();
-                result.putString("id", viewModel.userName.getValue());
-
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.menu_fragment, HomeFragment.class, null)
@@ -66,9 +64,13 @@ public class MenuActivity extends AppCompatActivity {
         binding.todo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Bundle result = new Bundle();
+                result.putString("id", viewModel.userName.getValue());
+
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.menu_fragment, TodoFragment.class, null)
+                        .replace(R.id.menu_fragment, TodoFragment.class, result)
                         .commit();
 
                 binding.drawerLayout.closeDrawer(Gravity.LEFT);
