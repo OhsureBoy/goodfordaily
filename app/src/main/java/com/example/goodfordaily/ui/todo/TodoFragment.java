@@ -3,14 +3,18 @@ package com.example.goodfordaily.ui.todo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.goodfordaily.R;
 
@@ -38,8 +42,6 @@ public class TodoFragment extends Fragment {
         todoAdapter = new TodoAdapter();
         binding.todoView.setAdapter(todoAdapter);
 
-
-
         viewModel. getAllTasks().observe(getViewLifecycleOwner(), tasks -> todoAdapter.setTodoList(tasks));
 
         binding.addTodoList.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +52,22 @@ public class TodoFragment extends Fragment {
                 binding.editText.setText("");
             }
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                //Leave this empty since no Drag-and-Drop functionality implemented
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                viewModel.delete(todoAdapter.getTaskAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(getActivity(), "Deleted", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(binding.todoView);
+
         return binding.getRoot();
 
     }

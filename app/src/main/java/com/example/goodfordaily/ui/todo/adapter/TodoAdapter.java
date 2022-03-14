@@ -33,6 +33,10 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         holder.onBind(todoList.get(position));
     }
 
+    public TodoModel getTaskAt(int position) {
+        return todoList.get(position);
+    }
+
     public void setTodoList(List<TodoModel> list){
         this.todoList = list;
         notifyDataSetChanged();
@@ -52,8 +56,6 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             todoData = (TextView) itemView.findViewById(R.id.todo_text);
-            checkbox = (CheckBox) itemView.findViewById(R.id.checkbox);
-            button = (Button) itemView.findViewById(R.id.todo_delete);
         }
 
         void onBind(TodoModel item) {
