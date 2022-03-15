@@ -24,6 +24,12 @@ public class DiaryFragmentViewModel extends AndroidViewModel {
         super(application);
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        compositeDisposable.dispose();
+    }
+
     public void setName(String name) {
         this.name = name;
     }

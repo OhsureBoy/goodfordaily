@@ -25,6 +25,11 @@ public class DiaryWriteFragmentViewModel extends AndroidViewModel {
 
 
     }
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        compositeDisposable.dispose();
+    }
 
     public void setName(String name) {
         this.name = name;

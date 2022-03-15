@@ -41,7 +41,7 @@ public class DiaryFragment extends Fragment {
         Log.e("TAG", "onCreateView: " + PreferenceManager.getString(getContext(),"loginId") );
         binding.getViewModel().setTodoRepository(getActivity().getApplication(), PreferenceManager.getString(getContext(),"loginId"));
 
-        viewModel.getAllTasks().observe(getViewLifecycleOwner(), tasks -> diaryAdapter.setDiaryList(tasks));
+        binding.getViewModel().getAllTasks().observe(getViewLifecycleOwner(), tasks -> diaryAdapter.setDiaryList(tasks));
 
         binding.diaryWrite.setOnClickListener(new View.OnClickListener() {
             @Override

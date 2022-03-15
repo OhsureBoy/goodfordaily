@@ -12,9 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.goodfordaily.R;
 import com.example.goodfordaily.model.TodoModel;
-import com.example.goodfordaily.ui.todo.model.TodoListModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {

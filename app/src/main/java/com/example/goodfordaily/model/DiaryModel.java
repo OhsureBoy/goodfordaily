@@ -12,6 +12,7 @@ public class DiaryModel {
 
     private String name;
     private String description;
+    private String date;
 
     //Use this to change column name in SQL table
     //@ColumnInfo(name = "priority_column")
@@ -26,9 +27,10 @@ public class DiaryModel {
         this.name = name;
     }
 
-    public DiaryModel(String description, String name) {
+    public DiaryModel(String description, String name,String date) {
         this.description = description;
         this.name = name;
+        this.date = date;
     }
 
     public int getId() {
@@ -39,6 +41,13 @@ public class DiaryModel {
         this.id = id;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getDescription() {
         return description;

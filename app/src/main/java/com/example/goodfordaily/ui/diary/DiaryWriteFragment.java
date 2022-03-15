@@ -21,6 +21,9 @@ import com.example.goodfordaily.ui.diary.viewModel.DiaryWriteFragmentViewModel;
 import com.example.goodfordaily.util.PreferenceManager;
 import com.example.goodfordaily.util.onBackPressedListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DiaryWriteFragment extends Fragment implements onBackPressedListener {
 
     FragmentDiaryWriteBinding binding;
@@ -45,11 +48,15 @@ public class DiaryWriteFragment extends Fragment implements onBackPressedListene
             }
         });
 
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
+        long mNow = System.currentTimeMillis();
+        Date mDate = new Date(mNow);
         Log.e("TAG", "onCreateView: " + PreferenceManager.getString(getContext(),"loginId") );
         binding.saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.insert(new DiaryModel(binding.writeDiary.getText().toString(), PreferenceManager.getString(getContext(),"loginId")));
+                viewModel.insert(new DiaryModel(binding.writeDiary.getText().toString(), PreferenceManager.getString(getContext(),"loginId"), mFormat.format(mDate)));
+                Log.e("TAG", "onClick: " + mFormat.format(mDate) );
                 Toast.makeText(getContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
                 BackFragment();
             }

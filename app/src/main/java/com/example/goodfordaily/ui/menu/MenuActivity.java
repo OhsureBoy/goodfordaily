@@ -17,7 +17,6 @@ import com.example.goodfordaily.ui.diary.DiaryFragment;
 import com.example.goodfordaily.ui.home.HomeFragment;
 import com.example.goodfordaily.ui.menu.viewModel.MenuViewModel;
 import com.example.goodfordaily.ui.todo.TodoFragment;
-import com.example.goodfordaily.ui.todo.model.TodoListModel;
 import com.example.goodfordaily.util.PreferenceManager;
 import com.example.goodfordaily.util.onBackPressedListener;
 

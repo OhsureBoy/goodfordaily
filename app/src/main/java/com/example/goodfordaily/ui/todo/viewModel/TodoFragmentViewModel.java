@@ -14,7 +14,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.goodfordaily.model.TodoModel;
 import com.example.goodfordaily.repository.todoList.TodoRepository;
 import com.example.goodfordaily.ui.menu.viewModel.MenuViewModel;
-import com.example.goodfordaily.ui.todo.model.TodoListModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,6 @@ import io.reactivex.disposables.CompositeDisposable;
 public class TodoFragmentViewModel extends AndroidViewModel {
 
     public MutableLiveData<String> todoListData;
-    public ArrayList<TodoListModel> todoList;
     public MutableLiveData<Boolean> checkBoxClicked;
 
     private TodoRepository todoRepository;
@@ -36,7 +34,6 @@ public class TodoFragmentViewModel extends AndroidViewModel {
     public TodoFragmentViewModel(@NonNull Application application) {
         super(application);
         todoListData = new MutableLiveData<>();
-        todoList = new ArrayList<>();
         checkBoxClicked = new MutableLiveData<>();
 
     }
@@ -60,17 +57,10 @@ public class TodoFragmentViewModel extends AndroidViewModel {
         todoRepository.insert(task);
     }
 
-    public void update(TodoModel task) {
-        todoRepository.update(task);
-    }
-
     public void delete(TodoModel task) {
         todoRepository.delete(task);
     }
 
-    public void deleteAllNotes() {
-        todoRepository.deleteAllNote();
-    }
 
     public LiveData<List<TodoModel>> getAllTasks() {
         return allNotes;
