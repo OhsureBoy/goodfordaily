@@ -1,5 +1,6 @@
 package com.example.goodfordaily.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.goodfordaily.R;
 import com.example.goodfordaily.databinding.FragmentHomeBinding;
 import com.example.goodfordaily.ui.home.viewModel.HomeFragmentViewModel;
+import com.example.goodfordaily.ui.login.LoginActivity;
+import com.example.goodfordaily.util.onBackPressedListener;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements onBackPressedListener {
 
     FragmentHomeBinding binding;
     HomeFragmentViewModel viewModel;
@@ -31,4 +34,13 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+            Intent intent = new Intent(binding.getRoot().getContext(), LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+    }
+
 }

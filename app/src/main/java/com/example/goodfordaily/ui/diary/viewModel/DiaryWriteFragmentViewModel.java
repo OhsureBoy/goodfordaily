@@ -13,15 +13,17 @@ import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class DiaryFragmentViewModel extends AndroidViewModel {
+public class DiaryWriteFragmentViewModel extends AndroidViewModel {
 
     private DiaryRepository diaryRepository;
     private LiveData<List<DiaryModel>> allNotes;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     String name;
 
-    public DiaryFragmentViewModel(@NonNull Application application) {
+    public DiaryWriteFragmentViewModel(@NonNull Application application) {
         super(application);
+
+
     }
 
     public void setName(String name) {

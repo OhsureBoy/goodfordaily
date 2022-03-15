@@ -2,9 +2,11 @@ package com.example.goodfordaily.ui.menu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -16,8 +18,10 @@ import com.example.goodfordaily.ui.home.HomeFragment;
 import com.example.goodfordaily.ui.menu.viewModel.MenuViewModel;
 import com.example.goodfordaily.ui.todo.TodoFragment;
 import com.example.goodfordaily.ui.todo.model.TodoListModel;
+import com.example.goodfordaily.util.PreferenceManager;
+import com.example.goodfordaily.util.onBackPressedListener;
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity   {
 
     ActivityMenuBinding binding;
     MenuViewModel viewModel;
@@ -35,7 +39,7 @@ public class MenuActivity extends AppCompatActivity {
 
         //userName
         viewModel.userName.setValue(getIntent().getStringExtra("userName"));
-
+        PreferenceManager.setString(getApplicationContext(), "loginId", getIntent().getStringExtra("userName"));
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.menu_fragment, HomeFragment.class, null)
@@ -88,5 +92,13 @@ public class MenuActivity extends AppCompatActivity {
                 binding.drawerLayout.closeDrawer(Gravity.LEFT);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.menu_fragment);
+        if(fragment != null) {
+            ((onBackPressedListener)fragment).onBackPressed();
+        }
     }
 }

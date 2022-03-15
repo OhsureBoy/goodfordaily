@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "LoginDetails")
 public class LoginModel {
 
-
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "Id")
     private int id;

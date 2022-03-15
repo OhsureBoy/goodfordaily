@@ -6,19 +6,22 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.goodfordaily.model.DiaryModel;
 import com.example.goodfordaily.model.LoginModel;
 import com.example.goodfordaily.model.TodoModel;
+import com.example.goodfordaily.repository.diary.DiaryDao;
 import com.example.goodfordaily.repository.login.LoginDao;
 import com.example.goodfordaily.repository.todoList.TodoDao;
 
 //Singleton
-@Database(entities = {TodoModel.class, LoginModel.class}, version = 1, exportSchema = false)
+@Database(entities = {TodoModel.class, LoginModel.class, DiaryModel.class}, version = 1, exportSchema = false)
 public abstract class TodoDatabase extends RoomDatabase {
     private static TodoDatabase instance;
 
     //Room will generate code for this
     public abstract TodoDao todoDao();
     public abstract LoginDao loginDao();
+    public abstract DiaryDao diaryDao();
 
     //"synchronized" to prevent creation of several instances at the same time
     public static synchronized TodoDatabase getInstance(Context context) {
