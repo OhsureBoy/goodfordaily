@@ -12,11 +12,25 @@ public class TodoModel {
 
     private String name;
     private String description;
-
+    private String date;
     //Use this to change column name in SQL table
     //@ColumnInfo(name = "priority_column")
 //    private int priority;
 
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public TodoModel(String description, String name, String date) {
+        this.description = description;
+        this.name = name;
+        this.date = date;
+    }
 
     public String getName() {
         return name;
@@ -26,10 +40,7 @@ public class TodoModel {
         this.name = name;
     }
 
-    public TodoModel(String description, String name) {
-        this.description = description;
-        this.name = name;
-    }
+
 
     public int getId() {
         return id;

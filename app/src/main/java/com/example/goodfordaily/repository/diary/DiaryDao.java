@@ -28,7 +28,9 @@ public interface DiaryDao {
     @Query("DELETE FROM diary_table")
     Completable deleteAllTasks();
 
-    @Query("SELECT * FROM diary_table where name=:name and date")
+    @Query("SELECT * FROM diary_table where name=:name")
     LiveData<List<DiaryModel>> getAllTasks(String name);
 
+    @Query("SELECT * FROM diary_table where name=:name and date=:date")
+    LiveData<List<DiaryModel>> getDateTasks(String name, String date);
 }

@@ -42,7 +42,6 @@ public class HomeFragmentViewModel extends AndroidViewModel {
     public void setDiaryRepository(Application application, String name) {
         this.name = name;
         diaryRepository = new DiaryRepository(application,compositeDisposable,name);
-        diaryAllNotes = diaryRepository.getAllTasks();
     }
     public void insert(DiaryModel task) {
         diaryRepository.insert(task);
@@ -52,8 +51,14 @@ public class HomeFragmentViewModel extends AndroidViewModel {
         diaryRepository.delete(task);
     }
 
-    public LiveData<List<DiaryModel>> getDiaryAllTasks() {
+    public LiveData<List<DiaryModel>> getDiaryAllTasks(String name, String date) {
+        diaryAllNotes = diaryRepository.getDateTasks(name, date);
         return diaryAllNotes;
+    }
+
+    public LiveData<List<TodoModel>> getTodolistAllTasks(String name, String date) {
+        todoAllNotes = todoRepository.getDateTasks(name, date);
+        return todoAllNotes;
     }
 
     public void setTodoRepository(Application application, String name) {
@@ -70,8 +75,4 @@ public class HomeFragmentViewModel extends AndroidViewModel {
         todoRepository.delete(task);
     }
 
-
-    public LiveData<List<TodoModel>> getTodolistAllTasks() {
-        return todoAllNotes;
-    }
 }

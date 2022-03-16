@@ -23,6 +23,9 @@ import com.example.goodfordaily.model.TodoModel;
 import com.example.goodfordaily.ui.todo.adapter.TodoAdapter;
 import com.example.goodfordaily.ui.todo.viewModel.TodoFragmentViewModel;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class TodoFragment extends Fragment {
     FragmentTodoBinding binding;
     TodoFragmentViewModel viewModel;
@@ -44,10 +47,14 @@ public class TodoFragment extends Fragment {
 
         viewModel. getAllTasks().observe(getViewLifecycleOwner(), tasks -> todoAdapter.setTodoList(tasks));
 
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
+        long mNow = System.currentTimeMillis();
+        Date mDate = new Date(mNow);
+
         binding.addTodoList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.getViewModel().insert(new TodoModel(binding.editText.getText().toString().trim(), viewModel.getName()));
+                binding.getViewModel().insert(new TodoModel(binding.editText.getText().toString().trim(), viewModel.getName(),mFormat.format(mDate)));
                 Log.e("TAG", "onClick: " + viewModel.getName() );
                 binding.editText.setText("");
             }

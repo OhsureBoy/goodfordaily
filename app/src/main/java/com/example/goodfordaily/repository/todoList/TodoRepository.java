@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.goodfordaily.model.DiaryModel;
 import com.example.goodfordaily.model.TodoModel;
 import com.example.goodfordaily.repository.login.LoginDao;
 import com.example.goodfordaily.util.database.TodoDatabase;
@@ -108,4 +109,7 @@ public class TodoRepository {
         return allTasks;
     }
 
+    public LiveData<List<TodoModel>> getDateTasks(String name, String date) {
+        return todoDao.getDateTasks(name, date);
+    }
 }

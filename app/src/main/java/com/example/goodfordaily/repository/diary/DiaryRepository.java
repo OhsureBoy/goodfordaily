@@ -109,4 +109,8 @@ public class DiaryRepository {
     public LiveData<List<DiaryModel>> getAllTasks() {
         return allTasks;
     }
+
+    public LiveData<List<DiaryModel>> getDateTasks(String name, String date) {
+        return diaryDao.getDateTasks(name, date);
+    }
 }

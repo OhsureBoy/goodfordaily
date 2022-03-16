@@ -52,31 +52,38 @@ public class HomeFragment extends Fragment implements onBackPressedListener {
 
         binding.getViewModel().setDiaryRepository(getActivity().getApplication(), PreferenceManager.getString(getContext(),"loginId"));
         binding.getViewModel().setTodoRepository(getActivity().getApplication(), PreferenceManager.getString(getContext(),"loginId"));
-        
-
-        binding.getViewModel().getTodolistAllTasks().observe(getViewLifecycleOwner(), task -> todoAdapter.setTodoList(task));
 
         binding.calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            LocalDate format = LocalDate.of(year, Month.values()[month], dayOfMonth);
-            date = format.toString();
-            binding.getViewModel().getDiaryAllTasks().observe(getViewLifecycleOwner(), task ->{
+                    LocalDate format = LocalDate.of(year, Month.values()[month], dayOfMonth);
+                    date = format.toString();
+                    binding.getViewModel().getDiaryAllTasks(PreferenceManager.getString(getContext(), "loginId"), date).observe(getViewLifecycleOwner(), task -> {
+                        if(task.isEmpty())
+                            diaryAdapter.setDiaryList(null);
+                        else {
+                            task.forEach(diaryModel ->
+                            {
+                                if (diaryModel.getDate().equals(date))
+                                    diaryAdapter.setDiaryList(task);
+                                else
+                                    diaryAdapter.setDiaryList(null);
+                            });
+                        }
+                    });
 
-                task.forEach(diaryModel ->
-                {
-                    if (diaryModel.getDate().equals(date))
-                        diaryAdapter.setDiaryList(task);
-                    else
-                        diaryAdapter.setDiaryList(null);
+                    binding.getViewModel().getTodolistAllTasks(PreferenceManager.getString(getContext(), "loginId"), date).observe(getViewLifecycleOwner(), task -> {
+                        if(task.isEmpty())
+                            todoAdapter.setTodoList(null);
+                        else {
+                            task.forEach(todoModel ->
+                            {
+                                if (todoModel.getDate().equals(date))
+                                    todoAdapter.setTodoList(task);
+                                else
+                                    todoAdapter.setTodoList(null);
+                            });
+                        }
+                    });
                 });
-            });
-                });
-//
-//        binding.getViewModel().date.observe(getViewLifecycleOwner(), date -> {
-//            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//            this.date = format.format(date);
-//            Log.e("TAG", "onCreateView: " + date);
-//        });
-
         return binding.getRoot();
 
     }
