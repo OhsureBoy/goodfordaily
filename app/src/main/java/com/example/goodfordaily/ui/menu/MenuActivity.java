@@ -15,6 +15,7 @@ import com.example.goodfordaily.R;
 import com.example.goodfordaily.databinding.ActivityMenuBinding;
 import com.example.goodfordaily.ui.diary.DiaryFragment;
 import com.example.goodfordaily.ui.home.HomeFragment;
+import com.example.goodfordaily.ui.login.LoginActivity;
 import com.example.goodfordaily.ui.menu.viewModel.MenuViewModel;
 import com.example.goodfordaily.ui.todo.TodoFragment;
 import com.example.goodfordaily.util.PreferenceManager;
@@ -89,6 +90,15 @@ public class MenuActivity extends AppCompatActivity   {
                         .commit();
 
                 binding.drawerLayout.closeDrawer(Gravity.LEFT);
+            }
+        });
+
+        binding.logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(binding.getRoot().getContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.example.goodfordaily.ui.diary;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,9 +19,11 @@ import com.example.goodfordaily.databinding.FragmentDiaryBinding;
 import com.example.goodfordaily.ui.diary.adapter.DiaryAdapter;
 import com.example.goodfordaily.ui.diary.viewModel.DiaryFragmentViewModel;
 import com.example.goodfordaily.ui.home.HomeFragment;
+import com.example.goodfordaily.ui.login.LoginActivity;
 import com.example.goodfordaily.util.PreferenceManager;
+import com.example.goodfordaily.util.onBackPressedListener;
 
-public class DiaryFragment extends Fragment {
+public class DiaryFragment extends Fragment implements onBackPressedListener {
 
     FragmentDiaryBinding binding;
     DiaryFragmentViewModel viewModel;
@@ -54,5 +57,13 @@ public class DiaryFragment extends Fragment {
         });
         return binding.getRoot();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+            fragmentManager = getActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.menu_fragment, DiaryFragment.class, null)
+                    .commit();
     }
 }

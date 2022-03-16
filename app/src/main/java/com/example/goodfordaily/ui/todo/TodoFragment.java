@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,16 +21,19 @@ import com.example.goodfordaily.R;
 
 import com.example.goodfordaily.databinding.FragmentTodoBinding;
 import com.example.goodfordaily.model.TodoModel;
+import com.example.goodfordaily.ui.diary.DiaryFragment;
 import com.example.goodfordaily.ui.todo.adapter.TodoAdapter;
 import com.example.goodfordaily.ui.todo.viewModel.TodoFragmentViewModel;
+import com.example.goodfordaily.util.onBackPressedListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TodoFragment extends Fragment {
+public class TodoFragment extends Fragment implements onBackPressedListener {
     FragmentTodoBinding binding;
     TodoFragmentViewModel viewModel;
     TodoAdapter todoAdapter;
+    FragmentManager fragmentManager;
 
     @Nullable
     @Override
@@ -76,6 +80,12 @@ public class TodoFragment extends Fragment {
         }).attachToRecyclerView(binding.todoView);
 
         return binding.getRoot();
+    }
 
+    public void onBackPressed() {
+        fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.menu_fragment, DiaryFragment.class, null)
+                .commit();
     }
 }
