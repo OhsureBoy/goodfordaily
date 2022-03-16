@@ -1,5 +1,6 @@
 package com.example.goodfordaily.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,15 @@ public class HomeFragment extends Fragment implements onBackPressedListener {
     TodoAdapter todoAdapter;
     DiaryAdapter diaryAdapter;
     String date = "";
+    LocalDate format;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        format = LocalDate.now();
+        date = format.toString();
+    }
 
     @Nullable
     @Override
@@ -53,37 +63,67 @@ public class HomeFragment extends Fragment implements onBackPressedListener {
         binding.getViewModel().setDiaryRepository(getActivity().getApplication(), PreferenceManager.getString(getContext(),"loginId"));
         binding.getViewModel().setTodoRepository(getActivity().getApplication(), PreferenceManager.getString(getContext(),"loginId"));
 
-        binding.calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-                    LocalDate format = LocalDate.of(year, Month.values()[month], dayOfMonth);
-                    date = format.toString();
-                    binding.getViewModel().getDiaryAllTasks(PreferenceManager.getString(getContext(), "loginId"), date).observe(getViewLifecycleOwner(), task -> {
-                        if(task.isEmpty())
-                            diaryAdapter.setDiaryList(null);
-                        else {
-                            task.forEach(diaryModel ->
-                            {
-                                if (diaryModel.getDate().equals(date))
-                                    diaryAdapter.setDiaryList(task);
-                                else
-                                    diaryAdapter.setDiaryList(null);
-                            });
-                        }
-                    });
-
-                    binding.getViewModel().getTodolistAllTasks(PreferenceManager.getString(getContext(), "loginId"), date).observe(getViewLifecycleOwner(), task -> {
-                        if(task.isEmpty())
-                            todoAdapter.setTodoList(null);
-                        else {
-                            task.forEach(todoModel ->
-                            {
-                                if (todoModel.getDate().equals(date))
-                                    todoAdapter.setTodoList(task);
-                                else
-                                    todoAdapter.setTodoList(null);
-                            });
-                        }
-                    });
+        binding.getViewModel().getDiaryAllTasks(PreferenceManager.getString(getContext(), "loginId"), date).observe(getViewLifecycleOwner(), task -> {
+            if(task.isEmpty())
+                diaryAdapter.setDiaryList(null);
+            else {
+                task.forEach(diaryModel ->
+                {
+                    if (diaryModel.getDate().equals(date))
+                        diaryAdapter.setDiaryList(task);
+                    else
+                        diaryAdapter.setDiaryList(null);
                 });
+            }
+        });
+
+        binding.getViewModel().getTodolistAllTasks(PreferenceManager.getString(getContext(), "loginId"), date).observe(getViewLifecycleOwner(), task -> {
+            if(task.isEmpty())
+                todoAdapter.setTodoList(null);
+            else {
+                task.forEach(todoModel ->
+                {
+                    if (todoModel.getDate().equals(date))
+                        todoAdapter.setTodoList(task);
+                    else
+                        todoAdapter.setTodoList(null);
+                });
+            }
+        });
+
+        binding.calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            format = LocalDate.of(year, Month.values()[month], dayOfMonth);
+            date = format.toString();
+
+            binding.getViewModel().getDiaryAllTasks(PreferenceManager.getString(getContext(), "loginId"), date).observe(getViewLifecycleOwner(), task -> {
+                if(task.isEmpty())
+                    diaryAdapter.setDiaryList(null);
+                else {
+                    task.forEach(diaryModel ->
+                    {
+                        if (diaryModel.getDate().equals(date))
+                            diaryAdapter.setDiaryList(task);
+                        else
+                            diaryAdapter.setDiaryList(null);
+                    });
+                }
+            });
+
+            binding.getViewModel().getTodolistAllTasks(PreferenceManager.getString(getContext(), "loginId"), date).observe(getViewLifecycleOwner(), task -> {
+                if(task.isEmpty())
+                    todoAdapter.setTodoList(null);
+                else {
+                    task.forEach(todoModel ->
+                    {
+                        if (todoModel.getDate().equals(date))
+                            todoAdapter.setTodoList(task);
+                        else
+                            todoAdapter.setTodoList(null);
+                    });
+                }
+            });
+        });
+
         return binding.getRoot();
 
     }
